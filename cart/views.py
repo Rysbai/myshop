@@ -11,7 +11,7 @@ def cartAdd(request, product_id):
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        cart.add(product=product, quantity=cd[quantity],
+        cart.add(product=product, quantity=cd['quantity'],
                                     update_quanity=cd['update'])
     return redirect('cart:CartDetail')
 

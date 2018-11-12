@@ -20,10 +20,10 @@
       </span>
     </div>
   </div>
-  {% endblock %}
   <p class="price">{{ product.price }} com </p>
   <form action="{% url 'cart:CartAdd' product.id %}" method="post">
     {{ cart_product_form }}
     {% csrf_token %}
     <input type="submit" name="" value="Добавить в карзину">
   </form>
+{% endblock %}
