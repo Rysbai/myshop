@@ -12,6 +12,7 @@ class Cart(object):
 
     # Добавление товара в корзину пользователя или обновление количества товара
     def add(self, product, quantity=1, update_quanity=False):
+        
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity':0,
