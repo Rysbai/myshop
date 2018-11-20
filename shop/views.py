@@ -15,12 +15,12 @@ def productList(request, category_slug=None):
     return render(request, 'shop/product/list.html', {
     'category': category,
     'categories': categories,
-    'products' : products
+    'products' : products,
     })
 
 def productDetail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug)
     cart_product_form = CartAddProductForm()
-    return render(request, 'shop/product/detail.html', {
-                            'product': product,
+    return render(request, 'shop/product/detail.html',
+                            {'product': product,
                             'cart_product_form': cart_product_form,})
