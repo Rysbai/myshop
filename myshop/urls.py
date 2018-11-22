@@ -20,9 +20,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^order/', include('orders.urls', namespace='orders')),
     url(r'^admin/', admin.site.urls),
     url(r'^cart/', include('cart.urls', namespace='cart')),
+    url(r'^order/', include('orders.urls', namespace='orders')),
+    url(r'^paypal/', include('paypal.standart.ipn.urls')),
+    url(r'^payment', include('payment.urls', namespace='payment')),
     url(r'^', include('shop.urls', namespace='shop')),
 ]
 
