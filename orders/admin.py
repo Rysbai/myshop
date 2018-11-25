@@ -10,6 +10,7 @@ def OrderDetail(obj):
     return format_html('<a href="{}">Посмотреть</a>'.format(
         reverse("orders:AdminOrderDetail", args=[obj.id])
         ))
+
 def ExportToCSV(modeladmin, request, queryset):
     opts = modeladmin.model._meta
     response = HttpResponse(content_type='text/csv')
@@ -30,7 +31,14 @@ def ExportToCSV(modeladmin, request, queryset):
             data_row.append(value)
         writer.writerow(data_row)
     return response
-    ExportToCSV.short_description = 'Export CSV'
+
+def OrderPDF(obj):
+    return format_html('<a href="{}">PDF</a>'.format(
+        reverse('orders:AdminOrderPDF', args=[obj.id])
+    ))
+
+ExportToCSV.short_description = 'Export CSV'
+OrderPDF.short_description = 'В PDF'
 
 
 class OrderItemInline(admin.TabularInline):
@@ -39,7 +47,7 @@ class OrderItemInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email', 'addres',
-                    'postal_code', 'city', 'paid', 'created', 'updated', OrderDetail]
+                    'postal_code', 'city', 'paid', 'created', 'updated', OrderDetail, OrderPDF,]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
     actions = [ExportToCSV]
