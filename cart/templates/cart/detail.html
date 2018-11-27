@@ -62,8 +62,12 @@
 
   <p>Применить купон</p>
   <form class="add" action="{% url 'cupon:apply' %}" method="post">
-    {% csrf_token%}
+    {% csrf_token %}
     {{ cupon_apply_form }}
     <input type="submit" name="" value="Обновить">
   </form>
+  <p class="text-right">
+    <a href="{% url 'shop:ProductList' %}" class="btn btn-light">Продолжить Шопинг</a>
+    <a href="{% url 'orders:OrderCreate' %}" class="btn">Оформить заказ</a>
+  </p>
 {% endblock %}
