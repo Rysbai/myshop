@@ -1,10 +1,12 @@
 from decimal import Decimal
 from myshop import settings
 from shop.models import Product
+from cupons.models import Cupon
 
 class Cart(object):
     def __init__(self, request):
         self.session = request.session
+        self.cupon_id = self.session.get('cupon_id')
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
             cart = self.session[settings.CART_SESSION_ID] ={}
@@ -12,7 +14,7 @@ class Cart(object):
 
     # Добавление товара в корзину пользователя или обновление количества товара
     def add(self, product, quantity=1, update_quanity=False):
-        
+
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity':0,
@@ -23,6 +25,7 @@ class Cart(object):
         else:
             self.cart[product_id]['quantity'] += quantity
         self.save()
+
 
         # Сохранение данных в сессию
     def save(self):
@@ -54,6 +57,20 @@ class Cart(object):
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+
+    @property
+    def cupon(self):
+        if self.cupon_id:
+            return Cupon.objects.get(id=self.cupon_id)
+        return None
+
+    def get_discount(self):
+        if self.cupon:
+            return (self.cupon.discount/Decimal('100')) * self.get_total_price()
+        return Decimal('0')
+
+    def get_total_price_after_discount(self):
+        return self.get_total_price() - self.get_discount()
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
