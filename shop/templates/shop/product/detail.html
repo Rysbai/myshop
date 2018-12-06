@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
   <div class="product-detail">
-    <div class="col-sm-4">
+    <div class="col-sm-4 thumbnail">
       <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg'%} {% endif %}"
       class="img-responsive">
     </div>
@@ -18,12 +18,12 @@
       <span>
         {{ product.description|linebreaks }}
       </span>
+      <form action="{% url 'cart:AjaxCartAdd' product.id %}" method="post" id="cart-form">
+        {{ cart_product_form }}
+        {% csrf_token %}
+      </form>
+      <input type="submit" name="" value="Добавить в карзину" id="btn-addtocart">
     </div>
   </div>
-  <p class="price">{{ product.price }} com </p>
-  <form action="{% url 'cart:CartAdd' product.id %}" method="post">
-    {{ cart_product_form }}
-    {% csrf_token %}
-    <input type="submit" name="" value="Добавить в карзину">
-  </form>
+
 {% endblock %}

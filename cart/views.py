@@ -4,6 +4,24 @@ from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
 from cupons.forms import CuponApplyForm
+from django.http import HttpResponse
+import json
+
+@require_POST
+def ajaxcartAdd(request, product_id):
+    print("Hi I'm here!")
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product, quantity=cd['quantity'],
+                                    update_quanity=cd['update'])
+
+    data = {
+        "get_total_price": float(cart.get_total_price())
+    }
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 @require_POST
 def cartAdd(request, product_id):
@@ -12,8 +30,8 @@ def cartAdd(request, product_id):
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        cart.add(product=product, quantity=cd['quantity'],
-                                    update_quanity=cd['update'])
+        cart.add(product=product, quantity=cd["quantity"], update_quanity=cd["update"])
+
     return redirect('cart:CartDetail')
 
 def cartRemove(request, product_id):

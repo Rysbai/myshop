@@ -20,7 +20,7 @@
         {% with product=item.product %}
         <tr>
           <td>
-            <a href="{{ product.get_absolute.url }}">
+            <a href="{{ product.get_absolute.url }}" class="thumbnail">
               <img src="{{ product.image.url }}" alt="" width="80", height="80">
             </a>
           </td>
@@ -70,4 +70,9 @@
     <a href="{% url 'shop:ProductList' %}" class="btn btn-light">Продолжить Шопинг</a>
     <a href="{% url 'orders:OrderCreate' %}" class="btn">Оформить заказ</a>
   </p>
+{% endblock %}
+{% block more_scripts %}
+  <script type="text/javascript">
+    $("#total_item").html("Корзина")
+  </script>
 {% endblock %}
