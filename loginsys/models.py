@@ -9,3 +9,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, verbose_name="Клиент")
     city = models.CharField(max_length=100, verbose_name="Город", default="Бишкек")
     phone = models.IntegerField()
+
+    def __str__(self):
+        return self.user.username

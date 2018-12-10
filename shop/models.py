@@ -8,7 +8,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Категории"
+        verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
     def __str__(self):
@@ -30,6 +30,8 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
         ordering = ['name']
         index_together = [
         ['id', 'slug']

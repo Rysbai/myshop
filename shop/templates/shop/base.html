@@ -13,34 +13,42 @@
 <body>
   <section id="header">
       <nav class="navbar navbar-default">
-        <div class="container">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <a class="navbar-brand" href="{% url 'shop:ProductList'%}">MYSHOP</a>
-            </div>
+        <div class="shadow">
+          <div class="container">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'shop:ProductList'%}">MYSHOP</a>
+              </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <form class="navbar-form navbar-left">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Поиск товаров">
-                </div>
-                <button type="submit" class="btn btn-default">Поиск</button>
-              </form>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Мой личный кабинет</a></li>
-                <li>
-                  {% with total_item=cart|length %}
-                    {%if cart.get_total_price > 0%}
-                      <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина: {{ cart.get_total_price }} сом.</a>
-                    {% else %}
-                      <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина пуста.</a>
-                    {% endif %}
-                  {% endwith %}
-                </li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Поиск товаров" >
+                  </div>
+                  <button type="submit" class="btn btn-default">Поиск</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                  {% if username %}
+                    <li><a href="#">Мой личный кабинет</a></li>
+                    <li><a href="{% url 'auth:logout' %}">Выйти</a></li>
+                  {% else %}
+                    <li><a href="#login-modal" data-toggle="modal">Вход</a></li>
+                    <li><a href="#register-modal" data-toggle="modal">Регистрация</a></li>
+                  {% endif %}
+                  <li>
+                    {% with total_item=cart|length %}
+                      {%if cart.get_total_price > 0%}
+                        <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина: {{ cart.get_total_price }} сом.</a>
+                      {% else %}
+                        <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина пуста.</a>
+                      {% endif %}
+                    {% endwith %}
+                  </li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div>
           </div>
         </div><!-- /.container-fluid -->
       </nav>
@@ -48,38 +56,34 @@
   <section id="content row" class='container'>
     {% block content %}{% endblock %}
   </section>
+
   <footer>
-    <div class="footer" id="footer">
+    <div class="footer navbar-fixed-bottom" id="footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h3> Contact </h3>
+                    <h3> Контакты </h3>
                     <ul>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
+                        <li> <a href="#"> rysbai.coder@gmail.com </a> </li>
+                        <li> <a href="https://github.com/Rysbai"> GitHub </a> </li>
+                        <li> <a href="https://www.instagram.com/thisisrysbai/"> @thisisrysbai </a> </li>
+                        <li> <a href="#"> +996 779 583 738 </a> </li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h3> Important Links </h3>
+                    <h3> Для </h3>
                     <ul>
-                        <li> <a href="#"> Admission </a> </li>
-                        <li> <a href="#"> Academic </a> </li>
-                        <li> <a href="#"> Career </a> </li>
-                        <li> <a href="#"> Administration </a> </li>
-                        <li> <a href="#"> Notice </a> </li>
-                        <li> <a href="#"> Tender </a> </li>
-                        <li> <a href="login.php"> Teacher Login </a> </li>
+                        <li> <a href="#"> мужчин </a> </li>
+                        <li> <a href="#"> женщин </a> </li>
+                        <li> <a href="#"> детей и подростков </a> </li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h3> Location </h3>
+                    <h3> Наши магазины </h3>
                     <ul>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
-                        <li> <a href="#"> Lorem Ipsum </a> </li>
+                        <li> <a href="#"> Бишкек Парк </a> </li>
+                        <li> <a href="#"> ЦУМ </a> </li>
+                        <li> <a href="#"> ГУМ </a> </li>
                     </ul>
                   </div>
               </div>
@@ -90,21 +94,77 @@
       <!--/.footer-->
       <div class="footer-bottom">
           <div class="container">
-              <p class="pull-left"> Copyright © 2018, MYSHOP</p>
-              <div class="pull-right">
-                  <ul class="nav nav-pills payments">
-                      <li><i class="fa fa-cc-visa"></i></li>
-                      <li><i class="fa fa-cc-mastercard"></i></li>
-                      <li><i class="fa fa-cc-amex"></i></li>
-                      <li><i class="fa fa-cc-paypal"></i></li>
-                  </ul>
-              </div>
+            <p class="pull-left"> Copyright © 2018, MYSHOP</p>
+            <div class="pull-right">
+                <ul class="nav nav-pills payments">
+                    <li><i class="fa fa-cc-visa"></i></li>
+                    <li><i class="fa fa-cc-mastercard"></i></li>
+                    <li><i class="fa fa-cc-amex"></i></li>
+                    <li><i class="fa fa-cc-paypal"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/.footer-bottom-->
+</footer>
+<!-- Modal window for login -->
+<div id="login-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center login-title">Вход</h1>
+          <div class="account-wall">
+            <img class="profile-img" src="{% static 'images/photo.png'%}" alt="">
+            <form class="form-signin" action="{% url 'auth:login' %}" method='post'>
+              {% csrf_token %}
+              <input type="text" class="form-control" placeholder="Имя" name="username" required autofocus>
+              <input type="password" class="form-control" placeholder="Пороль" name="password" required>
+              <a href="{% url 'auth:login' %}">
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
+              </a>
+              <a href="#" class="pull-right need-help">Вам помочь? </a><span class="clearfix"></span>
+            </form>
+            {% if error_login %}
+              <span style="color: red; margin: 10px">{{ error_login }}</span>
+            {% endif %}
           </div>
+          <a href="{% url 'auth:register' %}" class="text-center new-account" style="margin-bottom: 10px;">Создать новый аккаунт </a>
+        </div>
       </div>
-      <!--/.footer-bottom-->
-  </footer>
+    </div>
+  </div>
+</div>
+<!-- Modal window for register -->
+<div id="register-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center login-title">Регистрация</h1>
+          <div class="account-wall">
+            <img class="profile-img" src="{% static 'images/photo.png'%}" alt="">
+            <form class="form-signin" action="{% url 'auth:register' %}" method='post'>
+              {% csrf_token %}
+              <input name="first_name" class="form-control" placeholder="Имя" required autofocus>
+              <input name="username" type="email" class="form-control" placeholder="Email" required autofocus>
+              <input name="password1" type="password" class="form-control" placeholder="Пороль" required>
+              <input name="password2" type="password" class="form-control" placeholder="Потвердите пороль" required>
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+              <a href="#" class="pull-right need-help">Вам помочь? </a><span class="clearfix"></span>
+            </form>
+        </div>
+        <a href="{% url 'auth:login' %}" class="text-center new-account" style="margin-bottom: 10px;">У вас уже есть аккаунт? </a>
+      </div>
+    </div>
+  </div>
+</div>
   <script type="text/javascript" src="{% static 'scripts/jquery-3.3.1.js'%}"></script>
   <script type="text/javascript" src="{% static 'scripts/script.js'%}"></script>
-  {% block more_scripts %}{% endblock %}
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  {% block more_scripts %}
+  {% endblock %}
 </body>
 </html>
