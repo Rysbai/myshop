@@ -3,6 +3,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 import weasyprint
 
 from .models import OrderItem, Order
@@ -10,20 +12,27 @@ from .forms import OrderCreateForm
 from cart.cart import Cart
 from .tasks import OrderCreated
 
-
+@login_required
 def orderCreate(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save()
+            order.user = auth.get_user(request)
+            order.save()
             if cart.cupon:
                 order.cupon = cart.cupon
                 order.discount = cart.cupon.discount
+                order.save()
             for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'],
+                product = item['product']
+                quantity = item['quantity']
+                OrderItem.objects.create(order=order, product=product,
                                         price=item['price'],
-                                        quantity=item['quantity'])
+                                        quantity=quantity)
+                product.stock -= quantity
+                product.save()
 
             cart.clear()
             OrderCreated.delay(order.id)

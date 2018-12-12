@@ -1,4 +1,4 @@
-from  django.contrib import auth
+from django.contrib import auth
 from django.shortcuts import redirect
 from loginsys.forms import UserCreateProfile
 

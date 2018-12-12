@@ -3,19 +3,19 @@ from cupons.models import Cupon
 from loginsys.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from shop.models import Product
+from decimal import Decimal
 
 class Order(models.Model):
-    first_name = models.CharField(verbose_name='Имя', max_length=50)
-    last_name = models.CharField(verbose_name='Фамилия', max_length=50)
-    email = models.EmailField(verbose_name='Email')
+    # first_name = models.CharField(verbose_name='Имя', max_length=50)
+    # last_name = models.CharField(verbose_name='Фамилия', max_length=50)
+    # email = models.EmailField(verbose_name='Email')
     city = models.CharField(verbose_name='Город', max_length=100)
-    addres = models.CharField(verbose_name='Адрес', max_length=250)
+    address = models.CharField(verbose_name='Адрес', max_length=250)
     postal_code = models.CharField(verbose_name='Почтовый код', max_length=20)
     created = models.DateTimeField(verbose_name='Создан', auto_now_add=True)
     updated =models.DateTimeField(verbose_name='Обновлен', auto_now=True)
     paid = models.BooleanField(verbose_name='Оплачен', default=False)
     user = models.ForeignKey(User, verbose_name='Покупатель', blank=True, null=True)
-
     cupon = models.ForeignKey(Cupon, related_name="orders", null=True, blank=True)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0),
                                                         MaxValueValidator(100)])

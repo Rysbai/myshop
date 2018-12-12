@@ -11,102 +11,67 @@
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
 <body>
-  <section id="header">
-      <nav class="navbar navbar-default">
-        <div class="shadow">
-          <div class="container">
-            <div class="container-fluid">
-              <!-- Brand and toggle get grouped for better mobile display -->
-              <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'shop:ProductList'%}">MYSHOP</a>
-              </div>
-
-              <!-- Collect the nav links, forms, and other content for toggling -->
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Поиск товаров" >
+  <div class="wrapper">
+    <div class="content">
+      <section id="header">
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="shadow">
+              <div class="container">
+                <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'shop:ProductList'%}">MYSHOP</a>
                   </div>
-                  <button type="submit" class="btn btn-default">Поиск</button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                  {% if username %}
-                    <li><a href="#">Мой личный кабинет</a></li>
-                    <li><a href="{% url 'auth:logout' %}">Выйти</a></li>
-                  {% else %}
-                    <li><a href="#login-modal" data-toggle="modal">Вход</a></li>
-                    <li><a href="#register-modal" data-toggle="modal">Регистрация</a></li>
-                  {% endif %}
-                  <li>
-                    {% with total_item=cart|length %}
-                      {%if cart.get_total_price > 0%}
-                        <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина: {{ cart.get_total_price }} сом.</a>
+
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск товаров" >
+                      </div>
+                      <button type="submit" class="btn btn-default">Поиск</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                      {% if username %}
+                        <li><a href="{% url 'auth:personal_area'%}">Мой личный кабинет</a></li>
+                        <li><a href="{% url 'auth:logout' %}">Выйти</a></li>
                       {% else %}
-                        <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина пуста.</a>
+                        <li><a href="#login-modal" data-toggle="modal">Вход</a></li>
+                        <li><a href="#register-modal" data-toggle="modal">Регистрация</a></li>
                       {% endif %}
-                    {% endwith %}
-                  </li>
-                </ul>
-              </div><!-- /.navbar-collapse -->
-            </div>
-          </div>
-        </div><!-- /.container-fluid -->
-      </nav>
-    </section>
-  <section id="content row" class='container'>
-    {% block content %}{% endblock %}
-  </section>
-
-  <footer>
-    <div class="footer navbar-fixed-bottom" id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h3> Контакты </h3>
-                    <ul>
-                        <li> <a href="#"> rysbai.coder@gmail.com </a> </li>
-                        <li> <a href="https://github.com/Rysbai"> GitHub </a> </li>
-                        <li> <a href="https://www.instagram.com/thisisrysbai/"> @thisisrysbai </a> </li>
-                        <li> <a href="#"> +996 779 583 738 </a> </li>
+                      <li>
+                        {% with total_item=cart|length %}
+                          {%if cart.get_total_price > 0%}
+                            <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина: {{ cart.get_total_price }} сом.</a>
+                          {% else %}
+                            <a href="{% url 'cart:CartDetail' %}" id="total_item">Корзина пуста.</a>
+                          {% endif %}
+                        {% endwith %}
+                      </li>
                     </ul>
+                  </div><!-- /.navbar-collapse -->
                 </div>
-                <div class="col-md-4">
-                    <h3> Для </h3>
-                    <ul>
-                        <li> <a href="#"> мужчин </a> </li>
-                        <li> <a href="#"> женщин </a> </li>
-                        <li> <a href="#"> детей и подростков </a> </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h3> Наши магазины </h3>
-                    <ul>
-                        <li> <a href="#"> Бишкек Парк </a> </li>
-                        <li> <a href="#"> ЦУМ </a> </li>
-                        <li> <a href="#"> ГУМ </a> </li>
-                    </ul>
-                  </div>
               </div>
-              <!--/.row-->
-          </div>
-          <!--/.container-->
-      </div>
-      <!--/.footer-->
-      <div class="footer-bottom">
-          <div class="container">
-            <p class="pull-left"> Copyright © 2018, MYSHOP</p>
-            <div class="pull-right">
-                <ul class="nav nav-pills payments">
-                    <li><i class="fa fa-cc-visa"></i></li>
-                    <li><i class="fa fa-cc-mastercard"></i></li>
-                    <li><i class="fa fa-cc-amex"></i></li>
-                    <li><i class="fa fa-cc-paypal"></i></li>
-                </ul>
+            </div><!-- /.container-fluid -->
+          </nav>
+        </section>
+      <section id="content row" class='container' style="margin-top: 70px;">
+        {% block content %}{% endblock %}
+      </section>
+    </div>
+
+    <footer id="footer" class="footer"><!--Footer-->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left">Copyright © 2018</p>
+                    <p class="pull-right">Amanbai uulu Rysbai</p>
+                </div>
             </div>
         </div>
-    </div>
-    <!--/.footer-bottom-->
-</footer>
+    </footer><!--/Footer-->
+</div>
+
 <!-- Modal window for login -->
 <div id="login-modal" class="modal fade">
   <div class="modal-dialog">

@@ -1,0 +1,51 @@
+{% extends 'shop/base.html' %}
+{% block title %}
+  Мой кабинет
+{% endblock %}
+{% block content %}
+  <h1>Мои заказы</h1>
+  {% if orders %}
+    <div class="thumbnail">
+      <table class='cart'>
+        <thead>
+          <tr style="width: 110px; border: 1px solid #ccc";>
+            <th>Заказ</th>
+            <th>Статус</th>
+            <th>Описание</th>
+            <th>Дата</th>
+            <th>Сумма</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in orders %}
+            {% with product=item.product %}
+              <tr>
+                <td style="border: 1px solid #ccc; padding: 10px;">
+                  № {{ item.id }}
+                </td>
+                <td style="border: 1px solid #ccc; padding: 10px;">
+                  {% if item.paid %}Оплачено{% else %}Неоплчено{% endif %}
+                </td>
+                <td style="border: 1px solid #ccc; padding: 10px;">
+                  {% for i in item.items.all %}
+                    {{ i.product.name }}
+                    {{ i.count }}
+                  {% endfor %}
+                </td>
+                <td style="border: 1px solid #ccc; padding: 10px;">
+                  {{ item.created|date:"d-N Y-год H:m" }}
+                </td>
+                <td style="border: 1px solid #ccc; padding: 10px;">
+                  {{ item.get_total_cost }} сом.
+                </td>
+              </tr>
+            {% endwith %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    У вас нет заказов.
+  {% endif %}
+  <a href="{% url 'auth:password_change'%}">Сменить пароль</a>
+{% endblock %}

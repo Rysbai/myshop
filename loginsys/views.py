@@ -1,3 +1,4 @@
+from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
@@ -57,14 +58,14 @@ def register(request):
 def password_change(request):
     args = dict()
     args.update(csrf(request))
-    if request.user.is_ananymous():
+    if request.user.is_anonymous():
         return redirect('/')
     if request.POST:
         new_pass_ch = UserPasswordChange(user=request.user, data=request.POST)
         if new_pass_ch.is_valid():
             new_pass_ch.save()
-            update_session_user_hash(request, new_pass_ch.user)
-            return redirect('/')
+            update_session_auth_hash(request, new_pass_ch.user)
+            return redirect('auth/password_change_done/')
     else:
         args['form'] = UserPasswordChange(request.user)
     return render(request, 'registration/password_change.html', args)

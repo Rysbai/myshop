@@ -18,14 +18,14 @@
     <tbody>
       {% for item in cart %}
         {% with product=item.product %}
-        <tr>
-          <td>
+        <tr style="width: 110px; border: 1px solid #ccc";>
+          <td style="border: 1px solid #ccc; padding: 10px;">
             <a href="{{ product.get_absolute.url }}" class="thumbnail">
               <img src="{{ product.image.url }}" alt="" width="80", height="80">
             </a>
           </td>
-          <td>{{ product.name }}</td>
-          <td>
+          <td style="border: 1px solid #ccc; padding: 10px;">{{ product.name }}</td>
+          <td style="border: 1px solid #ccc; padding: 10px;">
             <form class="add" action="{% url 'cart:CartAdd' product.id %}" method="post">
               {{ item.update_quanity_form.quantity  }}
               {{ item.update_quanity_form.update  }}
@@ -33,23 +33,23 @@
               <input type="submit" name="" value="Обновить">
             </form>
           </td>
-          <td><a href="{% url 'cart:CartRemove' product.id %}">Удалить</a></td>
-          <td class='num'>{{ item.price }} com.</td>
-          <td class='num'>{{ item.total_price }} com.</td>
+          <td style="border: 1px solid #ccc; padding: 10px;"><a href="{% url 'cart:CartRemove' product.id %}">Удалить</a></td>
+          <td class='num' style="border: 1px solid #ccc; padding: 10px;">{{ item.price }} com.</td>
+          <td class='num' style="border: 1px solid #ccc; padding: 10px;">{{ item.total_price }} com.</td>
         </tr>
         {% endwith %}
       {% endfor%}
       {% if cart.cupon %}
         <tr class="subtotal">
-          <td>Сумма без скидки</td>
-          <td colspan="4"></td>
-          <td>{{ cart.get_total_price }}</td>
+          <td style="border: 1px solid #ccc; padding: 10px;">Сумма без скидки</td>
+          <td colspan="4" style="border: 1px solid #ccc; padding: 10px;"></td>
+          <td style="border: 1px solid #ccc; padding: 10px;">{{ cart.get_total_price }}</td>
         </tr>
         <tr>
-          <td>
+          <td style="border: 1px solid #ccc; padding: 10px;">
             "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
           </td>
-          <td class="num discount">- {{ cart.get_discount|floatformat:"2" }} сом.</td>
+          <td class="num discount" style="border: 1px solid #ccc; padding: 10px;">- {{ cart.get_discount|floatformat:"2" }} сом.</td>
         </tr>
       {% endif %}
       <tr class='total'>
