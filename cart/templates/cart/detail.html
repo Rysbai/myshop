@@ -46,10 +46,10 @@
           <td style="border: 1px solid #ccc; padding: 10px;">{{ cart.get_total_price }}</td>
         </tr>
         <tr>
-          <td style="border: 1px solid #ccc; padding: 10px;">
+          <td>
             "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
           </td>
-          <td class="num discount" style="border: 1px solid #ccc; padding: 10px;">- {{ cart.get_discount|floatformat:"2" }} сом.</td>
+          <td>- {{ cart.get_discount|floatformat:"2" }} сом.</td>
         </tr>
       {% endif %}
       <tr class='total'>

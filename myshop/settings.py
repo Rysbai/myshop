@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'cupons',
-    'loginsys'
+    'loginsys',
+    'search'
 ]
 
 MIDDLEWARE_CLASSES = [

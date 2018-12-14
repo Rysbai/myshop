@@ -3,7 +3,8 @@
   Мой кабинет
 {% endblock %}
 {% block content %}
-  <h1>Мои заказы</h1>
+  <h1>{{ username.title }}</h1>
+  <h2>Мои заказы</h2>
   {% if orders %}
     <div class="thumbnail">
       <table class='cart'>
@@ -36,7 +37,7 @@
                   {{ item.created|date:"d-N Y-год H:m" }}
                 </td>
                 <td style="border: 1px solid #ccc; padding: 10px;">
-                  {{ item.get_total_cost }} сом.
+                  {{ item.get_total_cost|floatformat:"2"}} сом.
                 </td>
               </tr>
             {% endwith %}
