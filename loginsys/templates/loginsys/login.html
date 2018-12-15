@@ -10,7 +10,7 @@
           <img class="profile-img" src="{% static 'images/photo.png'%}" alt="">
           <form class="form-signin" action="{% url 'auth:login' %}" method='post'>
             {% csrf_token %}
-            <input type="text" class="form-control" placeholder="Имя" name="username" required autofocus>
+            <input type="text" class="form-control" placeholder="Email" name="username" required autofocus>
             <input type="password" class="form-control" placeholder="Пороль" name="password" required>
             <a href="{% url 'auth:login' %}">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>

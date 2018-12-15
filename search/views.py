@@ -6,5 +6,6 @@ def search(request):
         categories = Category.objects.all()
         pattern = request.GET.get('query')
         products = Product.objects.filter(name__contains=pattern)
+        # products = Product.objects.annotate(search=SearchVector('description', 'name'),).filter(search=pattern)
         return render(request, 'search/search.html',
                         {'products': products, 'query': pattern, 'categories': categories})
