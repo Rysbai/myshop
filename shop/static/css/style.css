@@ -133,7 +133,7 @@ thead{
 .img-responsive {
   width: 250px;
 }
-.footer {
+/* .footer {
 	background: #2d3436;
 	height: auto;
 	padding-bottom: 30px;
@@ -166,7 +166,7 @@ thead{
 }
 .footer a {
 	color: #F5F5F5
-}
+} */
 .supportLi h4 {
 	font-size: 20px;
 	font-weight: lighter;
@@ -186,7 +186,15 @@ thead{
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+.footer ul li a {
+  display: block;
+  list-style-type: none;
+	color: #2d3436;
+}
 .footer-bottom p.pull-left {
+	padding-top: 6px;
+}
+.footer-bottom p.pull-right {
 	padding-top: 6px;
 }
 
